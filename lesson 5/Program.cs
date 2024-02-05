@@ -153,16 +153,26 @@ namespace lesson_5
         static void SameLetters(string inputStr)
         {
             string[] words = inputStr.Split();
+            string currentWord = string.Empty;
+            string checkedWord = string.Empty;
+            StringBuilder result = new StringBuilder(string.Empty);
             for (int i = 0; i < words.Length; i++)
             {
+                currentWord = words[i];
+                if (currentWord == "") { continue; }
+                if (currentWord.Length == 1) { continue; }
                 for (int j = 1; j < words.Length; j++)
                 {
-                    if (true)
+                    checkedWord = words[j];
+                    if (checkedWord == "") { continue; }
+                    if (checkedWord.Length == 1) { continue; }
+                    if(currentWord[0] == checkedWord[0] && currentWord[currentWord.Length -1] == checkedWord[checkedWord.Length - 1])
                     {
-
+                        result.Append(currentWord + " ");
                     }
                 }
             }
+            Console.WriteLine($"Слово(а) {result} повторилось(ись) в тексте") ;
         }
 
         // todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения.
@@ -202,6 +212,7 @@ namespace lesson_5
                 Console.WriteLine("1) Найти слова, содержащие максимальное количество цифр.");
                 Console.WriteLine("2) Найти самое длинное слово и определить, сколько раз оно встретилось в тексте.");
                 Console.WriteLine("3) Заменить цифры от 0 до 9 на слова «ноль», «один», …, «девять».");
+                Console.WriteLine("4) Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву.");
                 successInConvert = int.TryParse(Console.ReadLine(), out choice);
                 if (!successInConvert || (choice > 0 && choice < 4)) continue;
                 break;
@@ -211,6 +222,7 @@ namespace lesson_5
                 case 1: FindNums(line); break;
                 case 2: LongestWord(line); break;
                 case 3: ChangeNums(line); break;
+                case 4: SameLetters(line); break;
                 default:
                     Console.WriteLine("wslkfghboqweiufgbvn");
                     break;
