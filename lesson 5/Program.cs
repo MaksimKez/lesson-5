@@ -148,36 +148,51 @@ namespace lesson_5
 
             Console.WriteLine(newStrQu.ToString());
             Console.WriteLine(newStrEx.ToString());
-        } //todo что?
+        } //todo Доделать
 
         static void SameLetters(string inputStr)
         {
-            string[] words = inputStr.Split();
+            char[] separators = { ' ', ',', '.', ';', ':', ';', '"', '|', '\r', '\n', };
+            string[] words = inputStr.Split(separators) ;
             string currentWord = string.Empty;
             string checkedWord = string.Empty;
             StringBuilder result = new StringBuilder(string.Empty);
             for (int i = 0; i < words.Length; i++)
             {
                 currentWord = words[i];
+                
                 if (currentWord == "") { continue; }
                 if (currentWord.Length == 1) { continue; }
-                for (int j = 1; j < words.Length; j++)
+                if (IsInResult(result.ToString().Split(' '), currentWord)) {  continue; }
+                for (int j = i+1; j < words.Length; j++)
                 {
                     checkedWord = words[j];
                     if (checkedWord == "") { continue; }
                     if (checkedWord.Length == 1) { continue; }
-                    if(currentWord[0] == checkedWord[0] && currentWord[currentWord.Length -1] == checkedWord[checkedWord.Length - 1])
+                    if (currentWord[0] == checkedWord[0] && currentWord[currentWord.Length - 1] == checkedWord[checkedWord.Length - 1])
                     {
+                        Console.WriteLine($"Словa {currentWord} и {checkedWord} начинаются и заканчиваются на одни и те же буквы") ;
                         result.Append(currentWord + " ");
                     }
                 }
+                Console.WriteLine();
             }
-            Console.WriteLine($"Слово(а) {result} повторилось(ись) в тексте") ;
+            Console.WriteLine(result);
+        } // Ужасно некрасиво, непонятно, сложно, но работает ПОЧТИ так как надо :)
+
+        static bool IsInResult(string[] repWords, string stringToCheck)
+        {
+            foreach(var item in repWords)
+            {
+                if (string.Compare(item, stringToCheck, StringComparison.OrdinalIgnoreCase) == 0) return true;
+            }
+            return false;
         }
 
-        // todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения.
+
+        // todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения. (доделать)
         // todo - Вывести на экран только предложения, не содержащие запятых.
-        // todo - Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву.
+        // todo - Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву. (пересмотреть)
 
 
         static void Main(string[] args)
@@ -193,7 +208,6 @@ namespace lesson_5
                     Console.WriteLine("Введите путь");
                     path = Console.ReadLine();
                     sr = new StreamReader(path);
-                    //if (sr.ReadLine() == null) Console.WriteLine("err"); break;
                     line = sr.ReadToEnd();
                     Console.WriteLine("Ваш текст: \n" + line);
                     break;
@@ -230,4 +244,3 @@ namespace lesson_5
         }
     }
 }
-//? ?????? Поместить в список все строки, затем разделить на условные предложения по индексу(?) 
