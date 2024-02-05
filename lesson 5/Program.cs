@@ -163,7 +163,6 @@ namespace lesson_5
                 
                 if (currentWord == "") { continue; }
                 if (currentWord.Length == 1) { continue; }
-                if (IsInResult(result.ToString().Split(' '), currentWord)) {  continue; }
                 for (int j = i+1; j < words.Length; j++)
                 {
                     checkedWord = words[j];
