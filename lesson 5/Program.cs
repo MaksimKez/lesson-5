@@ -1,4 +1,6 @@
-﻿using System.Reflection.Metadata;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace lesson_5
@@ -150,28 +152,40 @@ namespace lesson_5
 
         static void SameLetters(string inputStr)
         {
+            string[] words = inputStr.Split();
+            for (int i = 0; i < words.Length; i++)
+            {
+                for (int j = 1; j < words.Length; j++)
+                {
+                    if (true)
+                    {
 
+                    }
+                }
+            }
         }
 
-// todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения.
-// todo - Вывести на экран только предложения, не содержащие запятых.
-// todo - Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву.
+        // todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения.
+        // todo - Вывести на экран только предложения, не содержащие запятых.
+        // todo - Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву.
 
 
         static void Main(string[] args)
         {
             string line = "";
             string path = "";
+            int choice;
             StreamReader sr;
             while (true)
             {
                 try
                 {
+                    Console.WriteLine("Введите путь");
                     path = Console.ReadLine();
                     sr = new StreamReader(path);
                     //if (sr.ReadLine() == null) Console.WriteLine("err"); break;
                     line = sr.ReadToEnd();
-                    Console.WriteLine("Ваш текст: \n"  + line);
+                    Console.WriteLine("Ваш текст: \n" + line);
                     break;
                 }
                 catch (Exception e)
@@ -180,8 +194,27 @@ namespace lesson_5
                     continue;
                 }
             }
-            //todo выбор действия
-            Intonation(line);
+
+            bool successInConvert = false;
+            while (true)
+            {
+                Console.WriteLine("Введите операцию (число от 1 до 3");
+                Console.WriteLine("1) Найти слова, содержащие максимальное количество цифр.");
+                Console.WriteLine("2) Найти самое длинное слово и определить, сколько раз оно встретилось в тексте.");
+                Console.WriteLine("3) Заменить цифры от 0 до 9 на слова «ноль», «один», …, «девять».");
+                successInConvert = int.TryParse(Console.ReadLine(), out choice);
+                if (!successInConvert || (choice > 0 && choice < 4)) continue;
+                break;
+            }
+            switch (choice)
+            {
+                case 1: FindNums(line); break;
+                case 2: LongestWord(line); break;
+                case 3: ChangeNums(line); break;
+                default:
+                    Console.WriteLine("wslkfghboqweiufgbvn");
+                    break;
+            }
         }
     }
 }
