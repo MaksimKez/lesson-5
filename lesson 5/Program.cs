@@ -169,6 +169,7 @@ namespace lesson_5
                     checkedWord = words[j];
                     if (checkedWord == "") { continue; }
                     if (checkedWord.Length == 1) { continue; }
+                    if (IsInResult(result.ToString().Split(' '), checkedWord)) { continue; }
                     if (currentWord[0] == checkedWord[0] && currentWord[currentWord.Length - 1] == checkedWord[checkedWord.Length - 1])
                     {
                         Console.WriteLine($"Словa {currentWord} и {checkedWord} начинаются и заканчиваются на одни и те же буквы") ;
@@ -177,7 +178,6 @@ namespace lesson_5
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine(result);
         } // Ужасно некрасиво, непонятно, сложно, но работает ПОЧТИ так как надо :)
 
         static bool IsInResult(string[] repWords, string stringToCheck)
