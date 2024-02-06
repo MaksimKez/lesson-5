@@ -150,43 +150,73 @@ namespace lesson_5
             Console.WriteLine(newStrEx.ToString());
         } //todo Доделать
 
+        //static void SameLetters(string inputStr)
+        //{
+        //    char[] separators = { ' ', ',', '.', ':', ';', '"', '|', '\r', '\n', };
+        //    string[] words = inputStr.Split(separators) ;
+        //    string currentWord = string.Empty;
+        //    string checkedWord = string.Empty;
+        //    StringBuilder result = new StringBuilder(string.Empty);
+        //    for (int i = 0; i < words.Length; i++)
+        //    {
+        //        currentWord = words[i];
+
+        //        if (string.IsNullOrEmpty(currentWord) || currentWord.Length == 1) { continue; }
+        //        for (int j = i+1; j < words.Length; j++)
+        //        {
+        //            checkedWord = words[j];
+        //            if (string.IsNullOrEmpty(checkedWord) || checkedWord.Length == 1) { continue; }
+        //            if (IsInResult(result.ToString().Split(' '), checkedWord)) { continue; }
+        //            if (currentWord[0] == checkedWord[0] && currentWord[^1] == checkedWord[^1])
+        //            {
+        //                Console.WriteLine($"Словa {currentWord} и {checkedWord} начинаются и заканчиваются на одни и те же буквы") ;
+        //                result.Append(currentWord + " ");
+        //            }
+        //        }
+        //        Console.WriteLine();
+        //    }
+        //} 
+
+        //static bool IsInResult(string[] repWords, string stringToCheck) => repWords.Contains(stringToCheck, StringComparer.OrdinalIgnoreCase);
+
+
         static void SameLetters(string inputStr)
         {
-            char[] separators = { ' ', ',', '.', ';', ':', ';', '"', '|', '\r', '\n', };
-            string[] words = inputStr.Split(separators) ;
-            string currentWord = string.Empty;
-            string checkedWord = string.Empty;
-            StringBuilder result = new StringBuilder(string.Empty);
+            char[] separators = { ' ', ',', '.', ';', ':', '"', '|', '\r', '\n' };
+            string[] words = inputStr.Split(separators);
+            HashSet<string> result = new HashSet<string>();
+
             for (int i = 0; i < words.Length; i++)
             {
-                currentWord = words[i];
-                
-                if (currentWord == "") { continue; }
-                if (currentWord.Length == 1) { continue; }
-                for (int j = i+1; j < words.Length; j++)
+                string currentWord = words[i];
+
+                if (string.IsNullOrEmpty(currentWord) || currentWord.Length == 1) { continue; }
+
+                for (int j = i + 1; j < words.Length; j++)
                 {
-                    checkedWord = words[j];
-                    if (checkedWord == "") { continue; }
-                    if (checkedWord.Length == 1) { continue; }
-                    if (IsInResult(result.ToString().Split(' '), checkedWord)) { continue; }
-                    if (currentWord[0] == checkedWord[0] && currentWord[currentWord.Length - 1] == checkedWord[checkedWord.Length - 1])
+                    string checkedWord = words[j];
+
+                    if (string.IsNullOrEmpty(checkedWord) || checkedWord.Length == 1) { continue; }
+
+                    if (IsInResult(result, checkedWord)) { continue; }
+
+                    if (currentWord[0] == checkedWord[0] && currentWord[^1] == checkedWord[^1])
                     {
-                        Console.WriteLine($"Словa {currentWord} и {checkedWord} начинаются и заканчиваются на одни и те же буквы") ;
-                        result.Append(currentWord + " ");
+                        Console.WriteLine($"Слова {currentWord} и {checkedWord} начинаются и заканчиваются на одни и те же буквы");
+                        result.Add(currentWord);
                     }
                 }
-                Console.WriteLine();
             }
-        } // Ужасно некрасиво, непонятно, сложно, но работает ПОЧТИ так как надо :)
-
-        static bool IsInResult(string[] repWords, string stringToCheck)
-        {
-            foreach(var item in repWords)
-            {
-                if (string.Compare(item, stringToCheck, StringComparison.OrdinalIgnoreCase) == 0) return true;
-            }
-            return false;
         }
+
+        static bool IsInResult(HashSet<string> repWords, string stringToCheck)
+        {
+            return repWords.Contains(stringToCheck);
+        }
+
+        // Ужасно некрасиво, непонятно, сложно, но работает ПОЧТИ так как надо :)
+
+
 
 
         // todo - Вывести на экран сначала вопросительные, а затем восклицательные предложения. (доделать)
